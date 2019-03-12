@@ -1,9 +1,11 @@
-FROM debian:stretch
+FROM balenalib/armv7hf-debian
 LABEL maintainer="Lin Song <linsongui@gmail.com>"
 
 ENV REFRESHED_AT 2019-01-30
 ENV SWAN_VER 3.27
 ENV L2TP_VER 1.3.12
+
+RUN [ "cross-build-start" ]
 
 WORKDIR /opt/src
 
@@ -48,6 +50,8 @@ RUN apt-get -yqq update \
 
 COPY ./run.sh /opt/src/run.sh
 RUN chmod 755 /opt/src/run.sh
+
+RUN [ "cross-build-end" ]
 
 EXPOSE 500/udp 4500/udp
 
